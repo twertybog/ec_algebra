@@ -77,7 +77,7 @@ mod test{
 
     #[test]
     fn double_ec_test(){
-        //y^2 = x^3 + 2x + 3
+        //y^2 = x^3 + 3x + 3
         //P(196;125)
         assert_eq!(ECPoint::ECPointGen(212129, -97701238),
         ECPoint::DoubleECPoints(ECPoint::ECPointGen(196, 125), 3));
