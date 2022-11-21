@@ -2,21 +2,21 @@
 #![allow(dead_code)]
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-struct ECPoint {
-    x: i128,
-    y: i128,
+pub struct ECPoint {
+    pub x: i128,
+    pub y: i128,
 }
 
 impl ECPoint {
-    fn BasePointGGet() -> ECPoint {
+    pub fn BasePointGGet() -> ECPoint {
         ECPoint { x: 0, y: 0 }
     }
 
-    fn ECPointGen(x: i128, y: i128) -> ECPoint {
+    pub fn ECPointGen(x: i128, y: i128) -> ECPoint {
         ECPoint { x, y }
     }
 
-    fn IsOnCurveCheck(point: ECPoint, a: i128, b: i128) -> bool {
+    pub fn IsOnCurveCheck(point: ECPoint, a: i128, b: i128) -> bool {
         if point.y.pow(2) == (point.x.pow(3) + a * point.x + b){
             return true;
         }
@@ -25,14 +25,14 @@ impl ECPoint {
         }
     }
 
-    fn AddECPoints(a: ECPoint, b: ECPoint) -> ECPoint {
+    pub fn AddECPoints(a: ECPoint, b: ECPoint) -> ECPoint {
         let m = (a.y - b.y) / (a.x - b.x);
         let x_r = m.pow(2) - a.x - b.x;
         let y_r = a.y + m * (x_r - a.x);
         ECPoint { x: x_r, y: y_r }
     }
 
-    fn DoubleECPoints(point: ECPoint, a: i128) -> ECPoint {
+    pub fn DoubleECPoints(point: ECPoint, a: i128) -> ECPoint {
         let m = (3 * point.x.pow(2) + a) / (2 * point.y);
         let x_3 = m.pow(2) - 2 * point.x;
         let y_3 = m*(point.x - x_3) - point.y;
@@ -42,7 +42,7 @@ impl ECPoint {
         }
     }
 
-    fn ScalarMult(point: ECPoint, k: i128, a: i128) -> ECPoint {
+    pub fn ScalarMult(point: ECPoint, k: i128, a: i128) -> ECPoint {
         if k > 1{
             let mut last = ECPoint::DoubleECPoints(point, a);
             for _ in 2..k {
@@ -55,11 +55,11 @@ impl ECPoint {
         }
     }
 
-    fn ECPointToString(point: ECPoint) -> String {
+    pub fn ECPointToString(point: ECPoint) -> String {
         format!("x = {}; y = {}", point.x, point.y)
     }
 
-    fn PrintECPoint(point: ECPoint) {
+    pub fn PrintECPoint(point: ECPoint) {
         println!("{}", ECPoint::ECPointToString(point));
     }
 }
